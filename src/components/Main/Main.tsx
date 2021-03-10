@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 
-const Main = () => (
+const Main: FunctionComponent = () => (
   <main className="bg-gray-100" />
 )
 
