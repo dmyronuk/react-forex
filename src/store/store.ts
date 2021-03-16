@@ -1,7 +1,11 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
-import { dashboardReducer } from './dashboard/dashboard.reducer'
+import { dashboardReducer, DashboardState } from './dashboard/dashboard.reducer'
+
+export interface RootState {
+  dashboard: DashboardState
+}
 
 const rootReducer = combineReducers({ dashboard: dashboardReducer })
 
