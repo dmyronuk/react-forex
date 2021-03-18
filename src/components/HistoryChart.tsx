@@ -13,9 +13,10 @@ export const HistoryChart: FunctionComponent = () => {
 
   useEffect(() => {
     const ctx = chartRef?.current?.getContext('2d')
+    let chartInstance: Chart
 
     if(activeCountryData && ctx) {
-      new Chart(ctx, {
+      chartInstance = new Chart(ctx, {
         type: 'line',
         data: {
           labels,
@@ -29,6 +30,13 @@ export const HistoryChart: FunctionComponent = () => {
           responsive: true
         }
       })
+    }
+
+    // before re-rendering, clean up stale chart reference
+    return () => {
+      if(chartInstance) {
+        chartInstance.destroy()
+      }
     }
 
   }, [chartRef, activeCountryData])
