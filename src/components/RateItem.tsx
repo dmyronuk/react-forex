@@ -12,7 +12,7 @@ const RateItem: FunctionComponent<{ country: string; rate: number }> = ({ countr
   }
 
   return (
-    <button className='m-2 text-gray-600' onClick={() => selectCountry(country)}>
+    <button className='m-2 text-gray-600 focus:outline-none' onClick={() => selectCountry(country)}>
       <div className='font-medium'>{country}</div>
       <div className='text-sm'>{rate.toFixed(4)}</div>
     </button>

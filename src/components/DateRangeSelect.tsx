@@ -26,7 +26,7 @@ const DateRangeSelect: FunctionComponent = () => {
   return (
     <select
       value={currentOption}
-      className='rounded-md border border-gray-300 bg-transparent p-1.5 font-medium'
+      className='rounded-md border border-gray-300 bg-transparent p-1.5 font-medium focus:outline-none'
       onChange={(event) => handleSelect(event.currentTarget.value as DateRangeOption)}
     >
       {options}
