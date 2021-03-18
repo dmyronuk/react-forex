@@ -18,3 +18,8 @@ export const selectActiveCountryHistory = createSelector(
   selectDashboard,
   dashboard => dashboard.activeCountry ? dashboard.history[dashboard.activeCountry] : []
 )
+
+export const selectActiveHistoryRange = createSelector(
+  selectDashboard,
+  dashboard => dashboard.activeHistoryRange
+)

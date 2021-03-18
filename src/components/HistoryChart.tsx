@@ -34,7 +34,7 @@ export const HistoryChart: FunctionComponent = () => {
   }, [chartRef, activeCountryData])
 
   return activeCountryData?.length > 0 ? (
-    <div className='h-5/6'>
+    <div className="flex-1">
       <canvas ref={chartRef} />
     </div>
   ) : null

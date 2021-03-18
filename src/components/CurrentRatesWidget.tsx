@@ -13,10 +13,12 @@ const CurrentRatesWidget: FunctionComponent = () => {
   const rates = useSelector(selectRates)
 
   const dashboardItems = Object.entries(rates)
-    .map(([country, rate]) => <RateItem key={country} country={country} rate={rate} />)
+    .map(([country, rate]) => (
+      <RateItem key={country} country={country} rate={rate} />
+    ))
 
   return (
-    <div className='flex flex-row w-full overflow-x-auto'>
+    <div className='flex flex-row m-5 p-2 bg-gray-50 rounded-md shadow-lg overflow-x-auto'>
       {dashboardItems}
     </div>
   )

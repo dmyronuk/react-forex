@@ -1,9 +1,27 @@
 import dayjs from 'dayjs'
-import { HistoryResponse, RatesResponse } from '../models'
+import { DateRangeOption, HistoryResponse, RatesResponse } from '../models'
 
 const BASE_URL = 'https://api.exchangeratesapi.io'
 const REFERENCE_CURRENCY = 'USD'
 export const CURRENTY_API_DATE_FORMAT = 'YYYY-MM-DD'
+
+const DATE_RANGE_MAP: {[key in DateRangeOption]: number} = {
+  [DateRangeOption.LastMonth]: 1,
+  [DateRangeOption.Last3Months]: 3,
+  [DateRangeOption.LastYear]: 12,
+}
+
+export function getDatesFromRange(range: DateRangeOption): { start: string; end: string} {
+  const monthsAgo = DATE_RANGE_MAP[range]
+  const monthsAgoDate = dayjs()
+    .add(-1 * monthsAgo, 'months')
+    .format(CURRENTY_API_DATE_FORMAT)
+
+  const today = dayjs()
+    .format(CURRENTY_API_DATE_FORMAT)
+
+  return { start: monthsAgoDate, end: today }
+}
 
 export async function fetchCurrencies(): Promise<RatesResponse> {
   const url = `${BASE_URL}/latest?base=${REFERENCE_CURRENCY}`

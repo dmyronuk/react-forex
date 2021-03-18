@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk'
 import { DashboardState } from './dashboard.reducer'
-import { fetchCurrencies, fetchHistory } from '../../services/currency.service'
-import { RatesResponse } from '../../models'
+import { getDatesFromRange, fetchCurrencies, fetchHistory } from '../../services/currency.service'
+import { DateRangeOption, RatesResponse } from '../../models'
 
 export const FETCH_LATEST_CURRENCIES_REQ = '[Dashboard] Fetch Latest Currencies Req'
 export const FETCH_LATEST_CURRENCIES_RES = '[Dashboard] Fetch Latest Currencies Res'
@@ -17,7 +17,8 @@ export interface FetchCurrencyHistoryReq { type: typeof FETCH_CURRENCY_HISTORY_R
 export interface FetchCurrencyHistoryRes {
   type: typeof FETCH_CURRENCY_HISTORY_RES,
   country: string,
-  data: Array<{ date: string; rate: number }>
+  data: Array<{ date: string; rate: number }>,
+  range: DateRangeOption
 }
 export interface FetchCurrencyHistoryErr { type: typeof FETCH_CURRENCY_HISTORY_ERR, errMessage: string }
 
@@ -46,8 +47,12 @@ export const fetchCurrencyHistoryReq = (country: string): FetchCurrencyHistoryRe
   return { type: FETCH_CURRENCY_HISTORY_REQ, country }
 }
 
-export const fetchCurrencyHistoryRes = (country: string, data: Array<{ date: string; rate: number }>): FetchCurrencyHistoryRes => {
-  return { type: FETCH_CURRENCY_HISTORY_RES, country, data }
+export const fetchCurrencyHistoryRes = (
+  country: string,
+  data: Array<{ date: string; rate: number }>,
+  range: DateRangeOption
+): FetchCurrencyHistoryRes => {
+  return { type: FETCH_CURRENCY_HISTORY_RES, country, data, range }
 }
 
 export const FetchCurrencyHistoryErr = (errMessage: string): FetchCurrencyHistoryErr => {
@@ -56,14 +61,15 @@ export const FetchCurrencyHistoryErr = (errMessage: string): FetchCurrencyHistor
 
 export const fetchCurrencyHistory = (
   country: string,
-  start: string,
-  end: string
+  range: DateRangeOption
 ): ThunkAction<void, DashboardState, unknown, DashboardActionTypes> => {
   return (dispatch) => {
     dispatch(fetchCurrencyHistoryReq(country))
 
+    const { start, end } = getDatesFromRange(range)
+
     fetchHistory(country, start, end).then(
-      data => dispatch(fetchCurrencyHistoryRes(country, data)),
+      data => dispatch(fetchCurrencyHistoryRes(country, data, range)),
       () => dispatch(fetchLatestCurrenciesErr(`Fetch currency history failed for ${country}`))
     )
   }

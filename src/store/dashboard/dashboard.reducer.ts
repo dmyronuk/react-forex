@@ -7,10 +7,11 @@ import {
   FETCH_LATEST_CURRENCIES_REQ,
   FETCH_LATEST_CURRENCIES_RES
 } from './dashboard.actions'
-import { RatesResponse } from '../../models'
+import { DateRangeOption, RatesResponse } from '../../models'
 
 export interface DashboardState {
   activeCountry: string | null
+  activeHistoryRange: DateRangeOption
   history: {
     [country: string]: Array<{ date: string; rate: number }>
   }
@@ -21,6 +22,7 @@ export interface DashboardState {
 
 export const initialDashboardState: DashboardState = {
   activeCountry: null,
+  activeHistoryRange: DateRangeOption.Last3Months,
   history: {},
   isHistoryLoading: false,
   isLatestLoading: false,
@@ -43,6 +45,7 @@ const fetchHistoryResReducer = (state: DashboardState, action: FetchCurrencyHist
   return {
     ...state,
     activeCountry: action.country,
+    activeHistoryRange: action.range,
     history: {
       ...state.history,
       [action.country]: action.data

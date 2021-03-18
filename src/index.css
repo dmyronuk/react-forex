@@ -1,3 +1,7 @@
 @tailwind base;
 @tailmind components;
 @tailwind utilities;
+
+button:focus, select:focus {
+  outline: none;
+}
