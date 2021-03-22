@@ -7,7 +7,7 @@ const CurrencyOverview: FunctionComponent = () => {
   const country = useSelector(selectActiveCountry)
 
   return (
-    <div className='w-1/6 p-2 text-gray-600'>
+    <div className='w-full md:w-1/6 p-2 text-gray-600'>
       <div className='mb-2'>
         <div className='text-sm'>Country</div>
         <div className='font-medium'>{country}</div>
