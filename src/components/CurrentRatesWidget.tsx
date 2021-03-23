@@ -13,8 +13,13 @@ const CurrentRatesWidget: FunctionComponent = () => {
   const rates = useSelector(selectRates)
 
   const dashboardItems = Object.entries(rates)
-    .map(([country, rate]) => (
-      <RateItem key={country} country={country} rate={rate} />
+    .map(([country, countryData]) => (
+      <RateItem
+        key={country}
+        country={country}
+        rate={countryData.rate}
+        change={countryData.change}
+      />
     ))
 
   return (

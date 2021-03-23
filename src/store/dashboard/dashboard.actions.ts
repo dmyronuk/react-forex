@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk'
 import { DashboardState } from './dashboard.reducer'
 import { getDatesFromRange, fetchCurrencies, fetchHistory } from '../../services/currency.service'
-import { DateRangeOption, RatesResponse } from '../../models'
+import { AdaptedRatesResponse, DateRangeOption } from '../../models'
 
 export const FETCH_LATEST_CURRENCIES_REQ = '[Dashboard] Fetch Latest Currencies Req'
 export const FETCH_LATEST_CURRENCIES_RES = '[Dashboard] Fetch Latest Currencies Res'
@@ -11,7 +11,7 @@ export const FETCH_CURRENCY_HISTORY_RES = '[Dashboard] Fetch Currency History Re
 export const FETCH_CURRENCY_HISTORY_ERR = '[Dashboard] Fetch Currency History Err'
 
 export interface FetchLatestCurrenciesReq { type: typeof FETCH_LATEST_CURRENCIES_REQ }
-export interface FetchLatestCurrenciesRes { type: typeof FETCH_LATEST_CURRENCIES_RES, data: RatesResponse }
+export interface FetchLatestCurrenciesRes { type: typeof FETCH_LATEST_CURRENCIES_RES, data: AdaptedRatesResponse }
 export interface FetchLatestCurrenciesErr { type: typeof FETCH_LATEST_CURRENCIES_ERR, errMessage: string }
 export interface FetchCurrencyHistoryReq { type: typeof FETCH_CURRENCY_HISTORY_REQ, country: string }
 export interface FetchCurrencyHistoryRes {
@@ -24,7 +24,7 @@ export interface FetchCurrencyHistoryErr { type: typeof FETCH_CURRENCY_HISTORY_E
 
 export const fetchLatestCurrenciesReq = (): FetchLatestCurrenciesReq => ({ type: FETCH_LATEST_CURRENCIES_REQ })
 
-export const fetchLatestCurrenciesRes = (data: RatesResponse): FetchLatestCurrenciesRes => {
+export const fetchLatestCurrenciesRes = (data: AdaptedRatesResponse): FetchLatestCurrenciesRes => {
   return { type: FETCH_LATEST_CURRENCIES_RES, data }
 }
 

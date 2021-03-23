@@ -6,7 +6,7 @@ export const selectDashboard = (state: RootState): DashboardState => state.dashb
 
 export const selectRates = createSelector(
   selectDashboard,
-  dashboard => dashboard.rates ? dashboard.rates.rates : {}
+  dashboard => dashboard.rates
 )
 
 export const selectActiveCountry = createSelector(

@@ -7,7 +7,7 @@ import {
   FETCH_LATEST_CURRENCIES_REQ,
   FETCH_LATEST_CURRENCIES_RES
 } from './dashboard.actions'
-import { DateRangeOption, RatesResponse } from '../../models'
+import { AdaptedRatesResponse, DateRangeOption } from '../../models'
 
 export interface DashboardState {
   activeCountry: string | null
@@ -17,7 +17,7 @@ export interface DashboardState {
   }
   isHistoryLoading: boolean
   isLatestLoading: boolean
-  rates: RatesResponse | null
+  rates: AdaptedRatesResponse
 }
 
 export const initialDashboardState: DashboardState = {
@@ -26,7 +26,7 @@ export const initialDashboardState: DashboardState = {
   history: {},
   isHistoryLoading: false,
   isLatestLoading: false,
-  rates: null,
+  rates: {}
 }
 
 const fetchCurrenciesReqReducer = (state: DashboardState): DashboardState => ({ ...state, isLatestLoading: true })
